@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TellerController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -20,3 +22,17 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', [DashboardController::class, 'index']);
 
 Auth::routes();
+
+Route::get('/siswa', [UserController::class, 'index']);
+Route::get('/siswa/buat', [UserController::class, 'create']);
+Route::post('/siswa', [UserController::class, 'store']);
+Route::get('/edit-siswa/{id}', [UserController::class, 'edit']);
+Route::post('/update-siswa/{id}', [UserController::class, 'update']);
+Route::get('/hapus-siswa/{id}', [UserController::class, 'destroy']);
+
+Route::get('/teller', [TellerController::class, 'index']);
+Route::get('/teller/buat', [TellerController::class, 'create']);
+Route::post('/teller', [TellerController::class, 'store']);
+Route::get('/edit-teller/{id}', [TellerController::class, 'edit']);
+Route::post('/update-teller/{id}', [TellerController::class, 'update']);
+Route::get('/hapus-teller/{id}', [TellerController::class, 'destroy']);
