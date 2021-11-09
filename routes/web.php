@@ -21,7 +21,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', function(){
+    return view('welcome');
+});
+
+Route::get('/home', [DashboardController::class, 'index']);
 
 Auth::routes();
 
