@@ -32,7 +32,12 @@
             @csrf
             <div class="form-group">
                 <label for="">Jenis Pembayaran</label>
-                <input type="text" name="jenis" class="form-control">
+                <select name="jenis" class="form-control" id="">
+                    <option value="">Pilih Jenis Pembayaran...</option>
+                    @foreach ($pembayarans as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama_pembayaran }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="">Tanggal Awal</label>

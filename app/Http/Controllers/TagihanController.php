@@ -19,24 +19,29 @@ class TagihanController extends Controller
     public function index(Request $request)
     {
         if (Auth::user()->role == 'teller') {
-            if ($request->get('jenis') && $request->get('awal') && $request->get('akhir')) {
+            if ($request->get('jenis')) {
                 $tagihans = Tagihan::where('pembayaran_id', $request->get('jenis'))->where('created_at', '>=' ,$request->get('awal'))->where('created_at', '<=' , $request->get('akhir'))->get();
+                $pembayarans = Pembayaran::all();
                 
-                return view('tagihan.index', compact('tagihans'));
+                return view('tagihan.index', compact('tagihans', 'pembayarans'));
             }else{
-                $tagihans = Tagihan::latest();
+                $pembayarans = Pembayaran::all();
+                $tagihans = Tagihan::all();
+                // dd($tagihans);
 
-                return view('tagihan.index', compact('tagihans'));
+                return view('tagihan.index', compact('tagihans', 'pembayarans'));
             }
         }else{
             if ($request->get('jenis') && $request->get('awal') && $request->get('akhir')) {
                 $tagihans = Tagihan::where('pembayaran_id', $request->get('jenis'))->where('created_at', '>=' ,$request->get('awal'))->where('created_at', '<=' , $request->get('akhir'))->where('user_id', Auth::user()->id)->get();
+                $pembayarans = Pembayaran::all();
                 
-                return view('tagihan.index', compact('tagihans'));
+                return view('tagihan.index', compact('tagihans', 'pembayarans'));
             }else{
+                $pembayarans = Pembayaran::all();
                 $tagihans = Tagihan::where('user_id', Auth::user()->id)->get();
 
-                return view('tagihan.index', compact('tagihans'));
+                return view('tagihan.index', compact('tagihans', 'pembayarans'));
             }
         }
     }
