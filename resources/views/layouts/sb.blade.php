@@ -53,6 +53,7 @@
 
 
             <!-- Nav Item - Pages Collapse Menu -->
+            @if (Auth::user()->role == 'teller')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -61,11 +62,12 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/siswa">Siswa</a>
+                        <a class="collapse-item {{ Request::is('siswa') ? 'active' : '' }}" href="/siswa">Siswa</a>
                         <a class="collapse-item" href="/teller">Teller</a>
                     </div>
                 </div>
             </li>
+            @endif
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -77,8 +79,12 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="utilities-color.html">Laporan</a>
-                        <a class="collapse-item" href="utilities-border.html">Tagihan</a>
+                        @if (Auth::user()->role == 'teller')
+                            <a class="collapse-item" href="{{ route('jenis-pembayaran.index') }}">Jenis Pembayaran</a>
+                        @endif
+                        @if (Auth::user()->role == 'teller' || Auth::user()->role == 'siswa')
+                            <a class="collapse-item" href="{{ route('transaksi.index') }}">Tagihan</a>
+                        @endif
                     </div>
                 </div>
             </li>
@@ -286,10 +292,17 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </a>
-                            </div>
                         </li>
 
                     </ul>

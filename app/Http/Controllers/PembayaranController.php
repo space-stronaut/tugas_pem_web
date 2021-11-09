@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PembayaranController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $siswas = User::where('role', 'siswa')->get();
-        return view('admins.siswa.index', compact('siswas'));
+        $pembayarans = Pembayaran::all();
+
+        return view('pembayaran.index', compact('pembayarans'));
     }
 
     /**
@@ -29,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admins.siswa.create');
+        return view('pembayaran.create');
     }
 
     /**
@@ -40,14 +37,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'role' => 'siswa'
-        ]);
+        Pembayaran::create($request->all());
 
-        return redirect('/siswa')->with(['success' => 'Data Siswa Berhasil Dibuat']);
+        return redirect()->route('jenis-pembayaran.index');
     }
 
     /**
@@ -69,9 +61,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $siswa = User::find($id);
+        $pembayaran = Pembayaran::find($id);
 
-        return view('admins.siswa.edit', compact('siswa'));
+        return view('pembayaran.edit', compact('pembayaran'));
     }
 
     /**
@@ -83,22 +75,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->password != NULL) {
-            User::find($id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'role' => 'siswa'
-            ]);
-        }else{
-            User::find($id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'role' => 'siswa'
-            ]);
-        }
+        Pembayaran::find($id)->update($request->all());
 
-        return redirect('/siswa')->with(['success' => 'Data Siswa Berhasil Diupdate']);
+        return redirect()->route('jenis-pembayaran.index');
     }
 
     /**
@@ -109,7 +88,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        Pembayaran::find($id)->delete();
 
         return redirect()->back();
     }

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\TellerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -36,3 +38,9 @@ Route::post('/teller', [TellerController::class, 'store']);
 Route::get('/edit-teller/{id}', [TellerController::class, 'edit']);
 Route::post('/update-teller/{id}', [TellerController::class, 'update']);
 Route::get('/hapus-teller/{id}', [TellerController::class, 'destroy']);
+
+Route::resource('jenis-pembayaran', PembayaranController::class);
+Route::resource('transaksi', TagihanController::class);
+Route::post('/konfirmasi/{id}', [TagihanController::class , 'konfirmasi'])->name('tagihan.konfirmasi');
+Route::get('/download/{id}', [TagihanController::class , 'download'])->name('tagihan.download');
+Route::post('/cetak-pdf', [TagihanController::class, 'pdf'])->name('cetak-pdf');
