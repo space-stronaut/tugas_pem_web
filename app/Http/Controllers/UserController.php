@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admins.siswa.create');
+        $kelas = Kelas::all();
+        return view('admins.siswa.create', compact('kelas'));
     }
 
     /**
@@ -44,7 +46,9 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => 'siswa'
+            'role' => 'siswa',
+            'nis' => $request->nis,
+            'kelas_id' => $request->kelas_id
         ]);
 
         return redirect('/siswa')->with(['success' => 'Data Siswa Berhasil Dibuat']);
@@ -70,8 +74,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $siswa = User::find($id);
+        $kelas = Kelas::all();
 
-        return view('admins.siswa.edit', compact('siswa'));
+        return view('admins.siswa.edit', compact('siswa', 'kelas'));
     }
 
     /**
@@ -88,13 +93,17 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'role' => 'siswa'
+                'role' => 'siswa',
+                'nis' => $request->nis,
+                'kelas_id' => $request->kelas_id
             ]);
         }else{
             User::find($id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'role' => 'siswa'
+                'role' => 'siswa',
+                'nis' => $request->nis,
+                'kelas_id' => $request->kelas_id
             ]);
         }
 

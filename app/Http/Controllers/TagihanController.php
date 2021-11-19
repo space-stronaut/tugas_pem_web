@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembayaran;
 use App\Models\Tagihan;
+// use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\DocBlock\Tag;
 use PDF;
 
 class TagihanController extends Controller
@@ -157,12 +157,12 @@ class TagihanController extends Controller
             $tagihans = Tagihan::where('pembayaran_id', $request->jenis)->where('created_at', '>=', $request->awal)->where('created_at', '<=', $request->akhir)->get();
  
             $pdf = PDF::loadview('pdf.pdf',['tagihans'=>$tagihans]);
-            return $pdf->download('laporan.pdf');
+            return $pdf->stream('laporan.pdf');
         }else{
             $tagihans = Tagihan::where('pembayaran_id', $request->jenis)->where('created_at', '>=', $request->awal)->where('created_at', '<=', $request->akhir)->where('user_id', Auth::user()->id)->get();
  
             $pdf = PDF::loadview('pdf.pdf',['tagihans'=>$tagihans]);
-            return $pdf->download('laporan.pdf');
+            return $pdf->stream('laporan.pdf');
         }
     }
 }
