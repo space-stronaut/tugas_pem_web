@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
+use App\Models\Information;
 use Illuminate\Http\Request;
 
-class KelasController extends Controller
+class InformationController extends Controller
 {
     public function __construct()
     {
@@ -18,9 +18,9 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::all();
+        $informations = Information::all();
 
-        return view('kelas.index', compact('kelas'));
+        return view('information.index', compact('informations'));
     }
 
     /**
@@ -30,7 +30,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('kelas.create');
+        return view('information.create');
     }
 
     /**
@@ -41,9 +41,15 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        Kelas::create($request->all());
+        $data = $request->all();
 
-        return redirect()->route('kelas.index');
+        if ($request->file('file')) {
+            $data['file'] = $request->file('file')->store('files', 'public');
+        }
+
+        Information::create($data);
+
+        return redirect()->route('information.index');
     }
 
     /**
@@ -54,7 +60,9 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        //
+        $info = Information::find($id);
+
+        return view('information.show', compact('info'));
     }
 
     /**
@@ -65,9 +73,9 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        $kelas = Kelas::find($id);
+        $info = Information::find($id);
 
-        return view("kelas.edit", compact('kelas'));
+        return view('information.edit', compact('info'));
     }
 
     /**
@@ -79,9 +87,15 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Kelas::find($id)->update($request->all());
+        $data = $request->all();
 
-        return redirect()->route('kelas.index');
+        if ($request->file('file')) {
+            $data['file'] = $request->file('file')->store('files', 'public');
+        }
+
+        Information::find($id)->update($data);
+
+        return redirect()->route('information.index');
     }
 
     /**
@@ -92,7 +106,7 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        Kelas::find($id)->delete();
+        Information::find($id)->delete();
 
         return redirect()->back();
     }

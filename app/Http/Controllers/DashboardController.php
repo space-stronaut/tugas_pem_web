@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tagihan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\DocBlock\Tag;
 
 class DashboardController extends Controller
 {
@@ -17,7 +20,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (Auth::user()->role == 'siswa') {
+            $tagihans = Tagihan::where('user_id', Auth::user()->id)->paginate(4);
+        }else{
+            $tagihans = Tagihan::paginate(4);
+        }
+        return view('home', compact('tagihans'));
     }
 
     /**
@@ -49,7 +57,7 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

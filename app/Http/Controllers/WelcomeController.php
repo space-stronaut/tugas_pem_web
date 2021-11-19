@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
+use App\Models\Information;
 use Illuminate\Http\Request;
 
-class KelasController extends Controller
+class WelcomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +14,9 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::all();
+        $infos = Information::all();
 
-        return view('kelas.index', compact('kelas'));
+        return view('welcome', compact('infos'));
     }
 
     /**
@@ -30,7 +26,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('kelas.create');
+        //
     }
 
     /**
@@ -41,9 +37,7 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        Kelas::create($request->all());
-
-        return redirect()->route('kelas.index');
+        //
     }
 
     /**
@@ -54,7 +48,9 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Information::find($id);
+
+        return view('show', compact('item'));
     }
 
     /**
@@ -65,9 +61,7 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        $kelas = Kelas::find($id);
-
-        return view("kelas.edit", compact('kelas'));
+        //
     }
 
     /**
@@ -79,9 +73,7 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Kelas::find($id)->update($request->all());
-
-        return redirect()->route('kelas.index');
+        //
     }
 
     /**
@@ -92,8 +84,6 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        Kelas::find($id)->delete();
-
-        return redirect()->back();
+        //
     }
 }

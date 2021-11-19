@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>SPP - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -53,7 +53,7 @@
 
 
             <!-- Nav Item - Pages Collapse Menu -->
-            @if (Auth::user()->role == 'teller')
+            @if (Auth::user()->role == 'teller' || Auth::user()->role == 'admin')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -80,15 +80,23 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        @if (Auth::user()->role == 'teller')
+                        @if (Auth::user()->role == 'teller' || Auth::user()->role == 'admin')
                             <a class="collapse-item" href="{{ route('jenis-pembayaran.index') }}">Jenis Pembayaran</a>
                         @endif
-                        @if (Auth::user()->role == 'teller' || Auth::user()->role == 'siswa')
+                        @if (Auth::user()->role == 'teller' || Auth::user()->role == 'siswa' ||Auth::user()->role == 'admin')
                             <a class="collapse-item" href="{{ route('transaksi.index') }}">Tagihan</a>
                         @endif
                     </div>
                 </div>
             </li>
+
+            @if (Auth::user()->role == 'admin')
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('information.index') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Informasi</span></a>
+            </li>
+            @endif
 
 
         </ul>

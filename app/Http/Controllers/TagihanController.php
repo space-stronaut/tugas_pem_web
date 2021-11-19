@@ -11,6 +11,10 @@ use PDF;
 
 class TagihanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +22,7 @@ class TagihanController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::user()->role == 'teller') {
+        if (Auth::user()->role == 'teller' || Auth::user()->role == 'admin') {
             if ($request->get('jenis')) {
                 $tagihans = Tagihan::where('pembayaran_id', $request->get('jenis'))->where('created_at', '>=' ,$request->get('awal'))->where('created_at', '<=' , $request->get('akhir'))->get();
                 $pembayarans = Pembayaran::all();
@@ -153,7 +157,7 @@ class TagihanController extends Controller
 
     public function pdf(Request $request)
     {
-        if (Auth::user()->role == 'teller') {
+        if (Auth::user()->role == 'teller' || Auth::user()->role == 'admin') {
             $tagihans = Tagihan::where('pembayaran_id', $request->jenis)->where('created_at', '>=', $request->awal)->where('created_at', '<=', $request->akhir)->get();
  
             $pdf = PDF::loadview('pdf.pdf',['tagihans'=>$tagihans]);

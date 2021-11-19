@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\TellerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -22,9 +24,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', function(){
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/info/{id}', [WelcomeController::class, 'show'])->name('welcome.show');
 
 Route::get('/home', [DashboardController::class, 'index']);
 
@@ -47,6 +48,7 @@ Route::get('/hapus-teller/{id}', [TellerController::class, 'destroy']);
 Route::resource('jenis-pembayaran', PembayaranController::class);
 Route::resource('transaksi', TagihanController::class);
 Route::resource('kelas', KelasController::class);
+Route::resource('information', InformationController::class);
 Route::post('/konfirmasi/{id}', [TagihanController::class , 'konfirmasi'])->name('tagihan.konfirmasi');
 Route::get('/download/{id}', [TagihanController::class , 'download'])->name('tagihan.download');
 Route::post('/cetak-pdf', [TagihanController::class, 'pdf'])->name('cetak-pdf');

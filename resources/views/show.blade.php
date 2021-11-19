@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>SPP SMKN 1 SUBANG</title>
+        <title>SPP SMKN 1 SUBANG | Info</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
             @endif
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+                {{-- <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <h2 class="text-success">SPP SMKN 1 SUBANG</h2>
                 </div>
 
@@ -58,13 +58,13 @@
 
                         
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+                {{-- <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <h2 class="text-success">Informasi Terbaru</h2>
-                </div>
+                </div> --}}
 
-                @foreach ($infos as $item)
+                {{-- @foreach ($infos as $item) --}}
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
@@ -75,7 +75,7 @@
 
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    {{ \Illuminate\Support\Str::limit($item->body, 50, $end='...') }}
+                                   {{$item->body}}
                                 </div>
                                 <a href="{{ route('welcome.show', $item->id) }}" class="underline text-gray-400">Selengkapnya</a>
                             </div>
@@ -84,10 +84,10 @@
                         
                     </div>
                 </div>
-                @endforeach
+                {{-- @endforeach --}}
 
 
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
+                {{-- <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 sm:text-left">
                         <div class="flex items-center">
                             <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
@@ -110,7 +110,7 @@
 
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
