@@ -16,7 +16,7 @@
         <a href="{{ route('jenis-pembayaran.create') }}" class="btn btn-primary">Tambah Jenis Pembayaran</a>
     </div>
     <div class="card-body">
-        <table class="table">
+        <table class="table" border="1">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>

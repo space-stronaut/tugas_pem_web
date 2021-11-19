@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Laporan SPP</title>
+	{{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
 </head>
 <body>
 
@@ -10,7 +11,7 @@
 			<h4>Laporan SPP</h4>
 		</center>
 		<br/>
-		<table class='table table-bordered'>
+		<table class='table table-bordered' border="1">
 			<thead>
 				<tr>
 					<th>No</th>

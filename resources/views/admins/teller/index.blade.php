@@ -16,7 +16,7 @@
         <a href="/teller/buat" class="btn btn-primary">Tambah Teller</a>
     </div>
     <div class="card-body">
-        <table class="table">
+        <table class="table" border="1">>
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>

@@ -39,13 +39,21 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
-                <label for="">Tanggal Awal</label>
-                <input type="date" name="awal" class="form-control">
+            <div>
+                <label for="">Periode</label>
             </div>
-            <div class="form-group">
-                <label for="">Tanggal Akhir</label>
-                <input type="date" name="akhir" class="form-control">
+            <div class="form-group row align-items-center">
+                {{-- <div class="col">
+                    <label for="">Periode</label>
+                </div> --}}
+                <div class="col">
+                    {{-- <label for="">Periode</label> --}}
+                    <input type="date" name="awal" class="form-control">
+                </div>
+                S/d
+                <div class="col">
+                    <input type="date" name="akhir" class="form-control">
+                </div>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Cari</button>
@@ -53,7 +61,7 @@
         </form>
     </div>
     <div class="card-body">
-        <table class="table">
+        <table class="table" border="1">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>
