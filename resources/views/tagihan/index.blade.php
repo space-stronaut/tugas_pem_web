@@ -17,6 +17,7 @@
         @if (Request::get('jenis'))
             <form action="{{ route('cetak-pdf') }}" method="POST">
                 @csrf
+                {{Request::get('jenis')}}
                 <input type="hidden" name="jenis" value="{{ Request::get('jenis') }}">
                 <input type="hidden" name="awal" value="{{ Request::get('awal') }}">
                 <input type="hidden" name="akhir" value="{{ Request::get('akhir') }}">
@@ -61,6 +62,7 @@
                 <th scope="col">Jenis Pembayaran</th>
                 <th scope="col">Jumlah Bayar</th>
                 <th scope="col">Status</th>
+                <th scope="col">Tanggal</th>
                 <th scope="col">Download</th>
                 <th scope="col">Aksi</th>
               </tr>
@@ -82,6 +84,9 @@
                             <div class="badge badge-info text-uppercase">
                                 {{$item->status}}
                             </div>
+                        </td>
+                        <td>
+                            {{ Carbon\Carbon::parse($item->created_at)->format('M d Y') }}
                         </td>
                         <td>
                             <a href="{{ route('tagihan.download', $item->id) }}" class="btn btn-warning">Unduh Bukti Pembayaran</a>

@@ -17,6 +17,7 @@
 					<th>Nama</th>
 					<th>Jenis Pembayaran</th>
 					<th>Jumlah Bayar</th>
+					{{-- <th>Tanggal</th> --}}
 					<th>Status</th>
 				</tr>
 			</thead>
@@ -28,6 +29,9 @@
 					<td>{{$p->user->name}}</td>
 					<td>{{$p->pembayaran->nama_pembayaran}}</td>
 					<td>{{$p->jumlah_bayar}}</td>
+					{{-- <td>
+						{{ Carbon\Carbon::parse($p->created_at)->format('M d Y') }}
+					</td> --}}
 					<td>{{$p->status}}</td>
 				</tr>
 				@endforeach

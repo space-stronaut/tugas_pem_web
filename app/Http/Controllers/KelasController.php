@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class KelasController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +14,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $kelas = Kelas::all();
+
+        return view('kelas.index', compact('kelas'));
     }
 
     /**
@@ -27,7 +26,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        //
+        return view('kelas.create');
     }
 
     /**
@@ -38,7 +37,9 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Kelas::create($request->all());
+
+        return redirect()->route('kelas.index');
     }
 
     /**
@@ -60,7 +61,9 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kelas = Kelas::find($id);
+
+        return view("kelas.edit", compact('kelas'));
     }
 
     /**
@@ -72,7 +75,9 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Kelas::find($id)->update($request->all());
+
+        return redirect()->route('kelas.index');
     }
 
     /**
@@ -83,6 +88,8 @@ class DashboardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Kelas::find($id)->delete();
+
+        return redirect()->back();
     }
 }

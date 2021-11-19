@@ -11,42 +11,33 @@
           </div>
     </div>
 @endif
-
 <div class="card">
     <div class="card-header">
-        <a href="/siswa/buat" class="btn btn-primary">Tambah Siswa</a>
+        <a href="{{ route('kelas.create') }}" class="btn btn-primary">Tambah Kelas</a>
     </div>
     <div class="card-body">
         <table class="table">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Status</th>
-                <th scope="col">Email</th>
-                <th scope="col">Kelas</th>
+                <th scope="col">Nama Kelas</th>
                 <th scope="col">Aksi</th>
               </tr>
             </thead>
             <tbody>
-                @forelse ($siswas as $item)
+                @forelse ($kelas as $item)
                     <tr>
                         <th>{{ $loop->iteration }}</th>
                         <td>
-                            {{ $item->name }}
+                            {{ $item->nama }}
                         </td>
-                        <td class="text-uppercase">
-                            {{ $item->role }}
-                        </td>
-                        <td>
-                            {{$item->email}}
-                        </td>
-                        <td>
-                            {{$item->kelas->nama}}
-                        </td>
-                        <td>
-                            <a href="/edit-siswa/{{ $item->id }}" class="btn btn-success">Edit</a>
-                            <a href="/hapus-siswa/{{ $item->id }}" class="btn btn-danger">Hapus</a>
+                        <td class="d-flex">
+                            <a href="{{ route('kelas.edit', $item->id) }}" class="btn btn-success">Edit</a>
+                            <form action="{{ route('kelas.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger ml-2">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @empty
