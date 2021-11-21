@@ -63,7 +63,10 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ Request::is('siswa') ? 'active' : '' }}" href="/siswa">Siswa</a>
+                        @if (Auth::user()->role == 'admin')
                         <a class="collapse-item" href="/teller">Teller</a>
+                        <a class="collapse-item" href="{{ route('admin.index') }}">Admin</a>
+                        @endif
                         <a href="{{ route('kelas.index') }}" class="collapse-item">Kelas</a>
                     </div>
                 </div>

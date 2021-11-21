@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Information;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class WelcomeController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,15 +14,8 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $infos = Information::orderBy('id', 'desc')->paginate(4);
-
-        return view('welcome', compact('infos'));
-    }
-    public function info()
-    {
-        $infos = Information::latest();
-
-        return view('information', compact('infos'));
+        $admins = User::where('role', 'admin')->get();
+        return view('admin.index', compact('admins'));
     }
 
     /**
@@ -32,7 +25,7 @@ class WelcomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -43,7 +36,14 @@ class WelcomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'admin'
+        ]);
+
+        return redirect()->route('admin.index')->with(['success' => 'Data Admin Berhasil Dibuat']);
     }
 
     /**
@@ -54,9 +54,7 @@ class WelcomeController extends Controller
      */
     public function show($id)
     {
-        $item = Information::find($id);
-
-        return view('show', compact('item'));
+        //
     }
 
     /**
@@ -67,7 +65,9 @@ class WelcomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $admin = User::find($id);
+
+        return view('admin.edit', compact('admin'));
     }
 
     /**
@@ -79,7 +79,22 @@ class WelcomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->password != NULL) {
+            User::find($id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'role' => 'admin'
+            ]);
+        }else{
+            User::find($id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => 'admin'
+            ]);
+        }
+
+        return redirect()->route('admin.index')->with(['success' => 'Data Admin Berhasil Diganti']);
     }
 
     /**
@@ -90,6 +105,8 @@ class WelcomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+
+        return redirect()->back();
     }
 }

@@ -41,6 +41,11 @@
                                     </div>
                                     <form class="user" method="POST" action="{{ route('login') }}">
                                         @csrf
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"

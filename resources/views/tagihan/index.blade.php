@@ -102,7 +102,7 @@
                         <td class="d-flex">
                             @if ($item->status != 'menunggu konfirmasi')
                                 <button class="btn btn-success" disabled>Selesai</button>
-                            @elseif($item->status == 'menunggu konfirmasi' && Auth::user()->role == 'teller')
+                            @elseif($item->status == 'menunggu konfirmasi' && Auth::user()->role == 'teller' || Auth::user()->role == 'admin')
                                 <form action="{{  route('tagihan.konfirmasi', $item->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-success ml-2">Konfirmasi</button>

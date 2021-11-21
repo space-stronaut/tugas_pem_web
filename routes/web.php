@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InformationController;
@@ -44,11 +45,12 @@ Route::post('/teller', [TellerController::class, 'store']);
 Route::get('/edit-teller/{id}', [TellerController::class, 'edit']);
 Route::post('/update-teller/{id}', [TellerController::class, 'update']);
 Route::get('/hapus-teller/{id}', [TellerController::class, 'destroy']);
-
+Route::get('/informasi', [WelcomeController::class, 'info'])->name('info.index');
 Route::resource('jenis-pembayaran', PembayaranController::class);
 Route::resource('transaksi', TagihanController::class);
 Route::resource('kelas', KelasController::class);
 Route::resource('information', InformationController::class);
+Route::resource('admin', AdminController::class);
 Route::post('/konfirmasi/{id}', [TagihanController::class , 'konfirmasi'])->name('tagihan.konfirmasi');
 Route::get('/download/{id}', [TagihanController::class , 'download'])->name('tagihan.download');
 Route::post('/cetak-pdf', [TagihanController::class, 'pdf'])->name('cetak-pdf');

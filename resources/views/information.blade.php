@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>SPP Smkn 1 Subang</title>
+    <title>SPP Smkn 1 Subang | Informasi</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,19 +32,42 @@
       {{-- jumbotron --}}
       <div class="jumbotron">
           <div class="container">
-            <h1 class="display-4">Author : {{ $item->user->name }}</h1>
+            <h1 class="display-4">Informasi</h1>
             <hr class="my-4">
-            <p>
-                {{ $item->body }}
-            </p>
-            <p>
-                Dilayangkan Tanggal : {{ Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
-            </p>
           </div>
       </div>
 
       {{-- information --}}
 
+      <div class="container">
+          <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                  <div>
+                      Informasi
+                  </div>
+                  {{-- <div>
+                      <a href="{{ route('info.index') }}" class="btn btn-success">Selengkapnya</a>
+                  </div> --}}
+              </div>
+              <div class="card-body">
+                  @forelse ($infos as $item)
+                      <div class="card" style="width: 18rem">
+                        <div class="card-header">
+                            Author : {{ $item->user->name }} (<span class="text-uppercase">{{ $item->user->role }}</span>)
+                        </div>
+                        <div class="card-body">
+                            {{ \Illuminate\Support\Str::limit($item->body, 50, $end='...') }}
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ route('welcome.show', $item->id) }}" class="btn btn-success btn-block">Lihat Lebih Lanjut</a>
+                        </div>
+                        </div>
+                  @empty
+                      
+                  @endforelse
+              </div>
+          </div>
+      </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
