@@ -20,7 +20,7 @@ class WelcomeController extends Controller
     }
     public function info()
     {
-        $infos = Information::latest();
+        $infos = Information::all();
 
         return view('information', compact('infos'));
     }

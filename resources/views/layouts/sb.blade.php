@@ -75,19 +75,19 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link {{ Request::route('jenis-pembayaran') || Request::route('transaksi') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="false" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Transaksi</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseUtilities" class="collapse {{ Request::is('jenis-pembayaran') || Request::is('transaksi') ? 'show' : '' }}" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         @if (Auth::user()->role == 'teller' || Auth::user()->role == 'admin')
-                            <a class="collapse-item" href="{{ route('jenis-pembayaran.index') }}">Jenis Pembayaran</a>
+                            <a class="collapse-item {{ Request::is('jenis-pembayaran') ? 'active' : '' }}" href="{{ route('jenis-pembayaran.index') }}">Jenis Pembayaran</a>
                         @endif
                         @if (Auth::user()->role == 'teller' || Auth::user()->role == 'siswa' ||Auth::user()->role == 'admin')
-                            <a class="collapse-item" href="{{ route('transaksi.index') }}">Tagihan</a>
+                            <a class="collapse-item {{ Request::is('transaksi') ? 'active' : '' }}" href="{{ route('transaksi.index') }}">Tagihan</a>
                         @endif
                     </div>
                 </div>

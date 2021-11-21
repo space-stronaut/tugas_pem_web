@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmMail;
 use App\Models\Pembayaran;
 use App\Models\Tagihan;
 // use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use PDF;
 
 class TagihanController extends Controller
@@ -144,6 +146,10 @@ class TagihanController extends Controller
         Tagihan::find($id)->update([
             'status' => 'terkonfirmasi'
         ]);
+
+        $user = Tagihan::find($id);
+
+        Mail::to($user->user->email)->send(new ConfirmMail($user));
 
         return redirect()->back();
     }
